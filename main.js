@@ -255,6 +255,14 @@ function onPlayerStateChange(event) {
     iconPause.style.display = 'none';
     
     stopProgressTracking();
+    
+    if (event.data === YT.PlayerState.ENDED) {
+      const currentPlaylist = player.getPlaylist();
+      const currentIndex = player.getPlaylistIndex();
+      if (currentPlaylist && currentIndex === currentPlaylist.length - 1) {
+        playNextBus();
+      }
+    }
   }
 }
 
@@ -329,6 +337,27 @@ function formatTime(seconds) {
   return `${min}:${sec < 10 ? '0' + sec : sec}`;
 }
 
+function playNextBus() {
+  const currentId = localStorage.getItem('selectedBus') || busData[0].id;
+  const currentIndex = busData.findIndex(b => b.id === currentId);
+  let nextIndex = (currentIndex + 1) % busData.length;
+  if (nextIndex < 0) nextIndex = 0;
+  
+  const nextBus = busData[nextIndex];
+  
+  mainTitle.textContent = nextBus.name;
+  routeStart.textContent = nextBus.start;
+  routeEnd.textContent = nextBus.end;
+  
+  localStorage.setItem('selectedBus', nextBus.id);
+  
+  const playlist = songsData[nextBus.id] || [];
+  const playlistIds = playlist.map(s => s.id);
+  if (playlistIds.length > 0 && player && player.loadPlaylist) {
+    player.loadPlaylist(playlistIds, 0, 0);
+  }
+}
+
 // Key bindings
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -347,23 +376,6 @@ document.addEventListener('keydown', (e) => {
   } else if (key === 'k') {
     document.getElementById('btn-prev').click();
   } else if (key === 'n') {
-    const currentId = localStorage.getItem('selectedBus') || busData[0].id;
-    const currentIndex = busData.findIndex(b => b.id === currentId);
-    let nextIndex = (currentIndex + 1) % busData.length;
-    if (nextIndex < 0) nextIndex = 0;
-    
-    const nextBus = busData[nextIndex];
-    
-    mainTitle.textContent = nextBus.name;
-    routeStart.textContent = nextBus.start;
-    routeEnd.textContent = nextBus.end;
-    
-    localStorage.setItem('selectedBus', nextBus.id);
-    
-    const playlist = songsData[nextBus.id] || [];
-    const playlistIds = playlist.map(s => s.id);
-    if (playlistIds.length > 0 && player && player.loadPlaylist) {
-      player.loadPlaylist(playlistIds, 0, 0);
-    }
+    playNextBus();
   }
 });
