@@ -64,73 +64,7 @@ main {
   overflow: hidden;
 }
 
-/* Top Nav */
-.top-nav {
-  position: fixed;
-  top: 1.25rem;
-  z-index: 20;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 
-.online-users {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.375rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: white;
-  filter: drop-shadow(0 1px 6px rgba(0,0,0,0.5));
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.ping-dot {
-  position: relative;
-  display: flex;
-  height: 0.625rem;
-  width: 0.625rem;
-}
-
-.ping-animate {
-  position: absolute;
-  display: inline-flex;
-  height: 100%;
-  width: 100%;
-  border-radius: 9999px;
-  background-color: #4ade80;
-  opacity: 0.75;
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.ping-core {
-  position: relative;
-  display: inline-flex;
-  height: 0.625rem;
-  width: 0.625rem;
-  border-radius: 9999px;
-  background-color: #4ade80;
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
-}
-
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.online-count {
-  font-variant-numeric: tabular-nums;
-}
-
-.online-text {
-  color: var(--text-muted);
-}
 
 /* Route Info */
 .route-info-container {
