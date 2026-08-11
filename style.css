@@ -464,7 +464,7 @@ main {
 .playlist-popover {
   position: absolute;
   bottom: calc(100% + 1rem);
-  left: 0;
+  right: 0;
   width: 320px;
   max-width: 85vw;
   max-height: 50vh;
@@ -546,6 +546,7 @@ main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 0;
 }
 
 .playlist-item-title {
