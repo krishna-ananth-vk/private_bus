@@ -78,11 +78,24 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 const busData = [
+  // Malabar Region
   { id: "MAYILVAHANAM", name: "മയിൽവാഹനം", start: "പാലക്കാട്", end: "ഷൊർണൂർ" },
   { id: "RAJADHANI", name: "രാജധാനി", start: "കോഴിക്കോട്", end: "കണ്ണൂർ" },
+  { id: "ASMA", name: "അസ്മ", start: "മലപ്പുറം", end: "കോഴിക്കോട്" },
+  { id: "KAVITHA", name: "കവിത", start: "വടകര", end: "കോഴിക്കോട്" },
+  { id: "GHAT_RIDER", name: "ഘട്ട് റൈഡർ", start: "കോഴിക്കോട്", end: "സുൽത്താൻ ബത്തേരി" },
+  { id: "CHIRAYATH", name: "ചിറയത്ത്", start: "ഗുരുവായൂർ", end: "കുന്നംകുളം" },
+  // Central Kerala
   { id: "KALAPPURACKAL", name: "കളപ്പുരയ്ക്കൽ", start: "കോട്ടയം", end: "കട്ടപ്പന" },
   { id: "SREE KRISHNA", name: "ശ്രീകൃഷ്ണ", start: "തൃശൂർ", end: "ഗുരുവായൂർ" },
-  { id: "SARANYA", name: "ശരണ്യ", start: "കടയ്ക്കൽ", end: "എറണാകുളം" }
+  { id: "KCT", name: "കെ.സി.ടി", start: "കോട്ടയം", end: "എറണാകുളം" },
+  { id: "PUTHENKANDATHIL", name: "പുത്തൻകണ്ടത്തിൽ", start: "ചങ്ങനാശ്ശേരി", end: "ഗുരുവായൂർ" },
+  { id: "CHOTTANIKKARA_AMMA", name: "ചോറ്റാനിക്കര അമ്മ", start: "ചോറ്റാനിക്കര", end: "ആലുവ" },
+  { id: "KK_MENON", name: "കെ.കെ മേനോൻ", start: "തൃശൂർ", end: "കൊടുങ്ങല്ലൂർ" },
+  // South Kerala
+  { id: "SARANYA", name: "ശരണ്യ", start: "കടയ്ക്കൽ", end: "എറണാകുളം" },
+  { id: "VALIYAPARAMBIL", name: "വലിയപറമ്പിൽ", start: "ആലപ്പുഴ", end: "ചങ്ങങ്കരി" },
+  { id: "EVERGREEN", name: "എവർഗ്രീൻ", start: "പത്തനംതിട്ട", end: "കൊല്ലം" }
 ];
 
 // Set initial bus info immediately on load
