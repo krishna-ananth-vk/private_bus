@@ -180,11 +180,6 @@ function onPlayerReady(event) {
     const section = document.createElement('div');
     section.className = 'bus-region';
     
-    const header = document.createElement('h3');
-    header.className = 'bus-region-title';
-    header.textContent = region.name;
-    section.appendChild(header);
-    
     const optionsContainer = document.createElement('div');
     optionsContainer.className = 'bus-region-options';
     
