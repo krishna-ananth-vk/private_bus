@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+      <button id="btn-get-in" class="btn-get-in">GET IN</button>
+    </div>
+
     <!-- Background -->
     <div class="hero-bg">
       <div class="hero-overlay"></div>
@@ -86,8 +91,7 @@
       <!-- Bus Selection Board -->
       <div class="bus-board-container">
         <div class="bus-board-current">
-          <span class="board-label">BUS:</span>
-          <span class="board-name" id="current-bus-name">MAYILVAHANAM</span>
+          <svg class="bus-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-1.38 0-2.5-1.12-2.5-2.5S6.12 12 7.5 12 10 13.12 10 14.5 8.88 17 7.5 17zm9 0c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM6 10V6h12v4H6z"></path></svg>
         </div>
         <div class="bus-list" id="bus-list">
           <!-- Dynamically populated via JS -->

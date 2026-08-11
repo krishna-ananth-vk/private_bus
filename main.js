@@ -1,6 +1,5 @@
 // main.js
 
-const VIDEO_ID = 'dEyRbAbSJZ8'; // Kerala Private Bus Playlist Part 2
 
 let player;
 let isPlaying = false;
@@ -18,11 +17,29 @@ const timeCurrent = document.getElementById('time-current');
 const timeTotal = document.getElementById('time-total');
 const progressBarFill = document.getElementById('progress-bar-fill');
 const progressContainer = document.getElementById('progress-container');
-const currentBusName = document.getElementById('current-bus-name');
 const busListContainer = document.getElementById('bus-list');
 const mainTitle = document.getElementById('main-title');
 const routeStart = document.getElementById('route-start');
 const routeEnd = document.getElementById('route-end');
+const splashScreen = document.getElementById('splash-screen');
+const btnGetIn = document.getElementById('btn-get-in');
+
+const busAudio = new Audio('/bus-arrival.mp3');
+
+btnGetIn.addEventListener('click', () => {
+  btnGetIn.disabled = true;
+  btnGetIn.textContent = 'STARTING...';
+  
+  busAudio.currentTime = 16;
+  busAudio.play();
+  
+  busAudio.onended = () => {
+    splashScreen.classList.add('hidden');
+    if (player && player.playVideo) {
+      player.playVideo();
+    }
+  };
+});
 
 const busData = [
   { id: "MAYILVAHANAM", name: "മയിൽവാഹനം", start: "പാലക്കാട്", end: "ഷൊർണൂർ" },
@@ -36,24 +53,32 @@ const busData = [
 const savedBusId = localStorage.getItem('selectedBus') || busData[0].id;
 const savedBus = busData.find(b => b.id === savedBusId) || busData[0];
 mainTitle.textContent = savedBus.name;
-currentBusName.textContent = savedBus.name;
 routeStart.textContent = savedBus.start;
 routeEnd.textContent = savedBus.end;
 
 let songsData = {};
-fetch('/songs.json')
-  .then(res => res.json())
-  .then(data => {
-    songsData = data;
-  })
-  .catch(e => console.error("Could not load songs.json", e));
 
-// Load YouTube API
-window.onYouTubeIframeAPIReady = function() {
+Promise.all([
+  fetch('/songs.json').then(res => res.json()),
+  new Promise(resolve => {
+    window.onYouTubeIframeAPIReady = resolve;
+  })
+]).then(([data]) => {
+  songsData = data;
+  
+  const savedBusId = localStorage.getItem('selectedBus') || busData[0].id;
+  const savedSong = localStorage.getItem('lastPlayedSong');
+  const playlist = songsData[savedBusId] || [];
+  
+  let initialVideoId = playlist.length > 0 ? playlist[0].id : '';
+  if (savedSong && playlist.some(s => s.id === savedSong)) {
+    initialVideoId = savedSong;
+  }
+  
   player = new YT.Player('youtube-player', {
     height: '10',
     width: '10',
-    videoId: VIDEO_ID,
+    videoId: initialVideoId,
     playerVars: {
       'playsinline': 1,
       'controls': 0,
@@ -66,7 +91,7 @@ window.onYouTubeIframeAPIReady = function() {
       'onStateChange': onPlayerStateChange
     }
   });
-};
+}).catch(e => console.error("Initialization error:", e));
 
 function onPlayerReady(event) {
   // Enable UI controls
@@ -94,16 +119,17 @@ function onPlayerReady(event) {
     btn.textContent = `${bus.name} (${bus.start} - ${bus.end})`;
     
     btn.addEventListener('click', () => {
-      currentBusName.textContent = bus.name;
       mainTitle.textContent = bus.name;
       routeStart.textContent = bus.start;
       routeEnd.textContent = bus.end;
       
       localStorage.setItem('selectedBus', bus.id);
       
-      const playlist = songsData[bus.id] || [{id: VIDEO_ID}];
+      const playlist = songsData[bus.id] || [];
       const playlistIds = playlist.map(s => s.id);
-      player.loadPlaylist(playlistIds, 0, 0);
+      if (playlistIds.length > 0) {
+        player.loadPlaylist(playlistIds, 0, 0);
+      }
     });
     
     busListContainer.appendChild(btn);
@@ -117,7 +143,6 @@ function onPlayerReady(event) {
     if (savedBusId && songsData[savedBusId]) {
       const bus = busData.find(b => b.id === savedBusId);
       if (bus) {
-        currentBusName.textContent = bus.name;
         mainTitle.textContent = bus.name;
         routeStart.textContent = bus.start;
         routeEnd.textContent = bus.end;
