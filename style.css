@@ -298,62 +298,6 @@ main {
   transform: scale(0.95);
 }
 
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  main {
-    justify-content: flex-start;
-    padding-top: 10vh;
-  }
-  
-  .route-info-container { display: none; }
-  .sub-title { display: none; }
-  .top-right-actions { display: none; }
-  
-  .main-title { font-size: 2rem; margin-top: 0; margin-bottom: 2rem; }
-  
-  .player-wrapper {
-    padding: 0 1rem;
-  }
-  
-  .glass-card { 
-    flex-direction: row; 
-    padding: 0.5rem 0.75rem 0.5rem 0.5rem; 
-    text-align: left;
-    gap: 0.5rem;
-  }
-  
-  .album-art-container { 
-    height: 3.5rem; 
-    width: 3.5rem; 
-    margin-bottom: 0; 
-  }
-  
-  .track-title { font-size: 0.85rem; }
-  .track-artist { font-size: 0.75rem; }
-  
-  .controls { 
-    margin-top: 0; 
-    gap: 0.15rem; 
-  }
-  
-  .play-btn { height: 2.25rem; width: 2.25rem; }
-  .icon-btn { height: 1.75rem; width: 1.75rem; }
-  
-  .time-info { text-align: left; font-size: 0.6rem; }
-  
-  .bus-board-container {
-    bottom: 1.5rem;
-    left: 0;
-    width: 100%;
-    padding: 0 1rem;
-  }
-  
-  .bus-board-actions {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-}
 
 /* Bus Selection Board */
 .bus-board-container {
@@ -629,4 +573,63 @@ main {
 
 .btn-action.btn-red:hover {
   background-color: #ff4a4a;
+  border-color: #ff4a4a;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  main {
+    justify-content: flex-start;
+    padding-top: 10vh;
+  }
+  
+  .route-info-container { display: none !important; }
+  .sub-title { display: none !important; }
+  .top-right-actions { display: none !important; }
+  
+  .main-title { font-size: 2rem; margin-top: 0; margin-bottom: 2rem; }
+  
+  .player-wrapper {
+    padding: 0 1rem;
+  }
+  
+  .glass-card { 
+    flex-direction: row; 
+    padding: 0.5rem 0.75rem 0.5rem 0.5rem; 
+    text-align: left;
+    gap: 0.5rem;
+  }
+  
+  .album-art-container { 
+    height: 3.5rem; 
+    width: 3.5rem; 
+    margin-bottom: 0; 
+  }
+  
+  .track-title { font-size: 0.85rem; }
+  .track-artist { font-size: 0.75rem; }
+  
+  .controls { 
+    margin-top: 0; 
+    gap: 0.15rem; 
+  }
+  
+  .play-btn { height: 2.25rem; width: 2.25rem; }
+  .icon-btn { height: 1.75rem; width: 1.75rem; }
+  
+  .time-info { text-align: left; font-size: 0.6rem; }
+  
+  .bus-board-container {
+    bottom: 1.5rem;
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  
+  .bus-board-actions {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
 }
