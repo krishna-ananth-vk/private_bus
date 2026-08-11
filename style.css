@@ -25,52 +25,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Splash Screen */
-.splash-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background-color: rgba(5, 22, 16, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 1s ease, visibility 1s ease;
-}
-
-.splash-screen.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.btn-get-in {
-  background-color: var(--primary-color);
-  color: white;
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 1rem 3rem;
-  border: none;
-  border-radius: 9999px;
-  cursor: pointer;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(255, 42, 42, 0.4);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.btn-get-in:hover {
-  background-color: #ff4a4a;
-  transform: scale(1.05);
-}
-
-.btn-get-in:disabled {
-  background-color: #555;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
 /* Background */
 .hero-bg {
   position: fixed;
@@ -363,6 +317,12 @@ main {
   z-index: 30;
 }
 
+.bus-board-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
 .bus-board-current {
   background-color: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(150%);
@@ -383,7 +343,9 @@ main {
   border-color: rgba(255,255,255,0.4);
 }
 
-
+.bus-selector-wrapper {
+  position: relative;
+}
 
 .bus-list {
   position: absolute;
@@ -405,7 +367,7 @@ main {
   transition: all 0.2s ease;
 }
 
-.bus-board-container:hover .bus-list {
+.bus-selector-wrapper:hover .bus-list {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -459,4 +421,28 @@ main {
 .btn-fullscreen:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Honk Button */
+.btn-honk {
+  background-color: var(--primary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 42, 42, 0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-honk:hover {
+  background-color: #ff4a4a;
+  transform: scale(1.05);
+}
+
+.btn-honk:active {
+  transform: scale(0.95);
 }

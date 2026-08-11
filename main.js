@@ -7,6 +7,8 @@ let progressInterval;
 
 // DOM Elements
 const btnPlayPause = document.getElementById('btn-play-pause');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
 const iconPlay = document.getElementById('icon-play');
 const iconPause = document.getElementById('icon-pause');
 const trackTitle = document.getElementById('track-title');
@@ -21,27 +23,15 @@ const busListContainer = document.getElementById('bus-list');
 const mainTitle = document.getElementById('main-title');
 const routeStart = document.getElementById('route-start');
 const routeEnd = document.getElementById('route-end');
-const splashScreen = document.getElementById('splash-screen');
-const btnGetIn = document.getElementById('btn-get-in');
 const btnFullscreen = document.getElementById('btn-fullscreen');
 const iconFsEnter = document.getElementById('icon-fs-enter');
 const iconFsExit = document.getElementById('icon-fs-exit');
+const btnHonk = document.getElementById('btn-honk');
 
-const busAudio = new Audio('/bus-arrival.mp3');
-
-btnGetIn.addEventListener('click', () => {
-  btnGetIn.disabled = true;
-  btnGetIn.textContent = 'STARTING...';
-  
-  busAudio.currentTime = 16;
-  busAudio.play();
-  
-  busAudio.onended = () => {
-    splashScreen.classList.add('hidden');
-    if (player && player.playVideo) {
-      player.playVideo();
-    }
-  };
+const hornAudio = new Audio('/Bus_Horn.mp3');
+btnHonk.addEventListener('click', () => {
+  hornAudio.currentTime = 0;
+  hornAudio.play().catch(e => console.log('Horn play failed:', e));
 });
 
 // Fullscreen Logic
@@ -85,7 +75,11 @@ let songsData = {};
 Promise.all([
   fetch('/songs.json').then(res => res.json()),
   new Promise(resolve => {
-    window.onYouTubeIframeAPIReady = resolve;
+    if (window.YT && window.YT.Player) {
+      resolve();
+    } else {
+      window.onYouTubeIframeAPIReady = resolve;
+    }
   })
 ]).then(([data]) => {
   songsData = data;
@@ -126,6 +120,8 @@ function onPlayerReady(event) {
   
   // Event listeners
   btnPlayPause.addEventListener('click', togglePlayPause);
+  btnPrev.addEventListener('click', () => player.previousVideo());
+  btnNext.addEventListener('click', () => player.nextVideo());
   
   // Basic seeking
   progressContainer.addEventListener('click', (e) => {
@@ -277,3 +273,40 @@ function formatTime(seconds) {
   const sec = Math.floor(seconds % 60);
   return `${min}:${sec < 10 ? '0' + sec : sec}`;
 }
+
+// Key bindings
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const key = e.key.toLowerCase();
+  
+  if (key === 'x') {
+    btnHonk.click();
+  } else if (key === 'p') {
+    document.getElementById('btn-play-pause').click();
+  } else if (key === 'f') {
+    btnFullscreen.click();
+  } else if (key === 'j') {
+    document.getElementById('btn-next').click();
+  } else if (key === 'k') {
+    document.getElementById('btn-prev').click();
+  } else if (key === 'n') {
+    const currentId = localStorage.getItem('selectedBus') || busData[0].id;
+    const currentIndex = busData.findIndex(b => b.id === currentId);
+    let nextIndex = (currentIndex + 1) % busData.length;
+    if (nextIndex < 0) nextIndex = 0;
+    
+    const nextBus = busData[nextIndex];
+    
+    mainTitle.textContent = nextBus.name;
+    routeStart.textContent = nextBus.start;
+    routeEnd.textContent = nextBus.end;
+    
+    localStorage.setItem('selectedBus', nextBus.id);
+    
+    const playlist = songsData[nextBus.id] || [];
+    const playlistIds = playlist.map(s => s.id);
+    if (playlistIds.length > 0 && player && player.loadPlaylist) {
+      player.loadPlaylist(playlistIds, 0, 0);
+    }
+  }
+});
