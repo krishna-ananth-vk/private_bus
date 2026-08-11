@@ -23,6 +23,9 @@ const routeStart = document.getElementById('route-start');
 const routeEnd = document.getElementById('route-end');
 const splashScreen = document.getElementById('splash-screen');
 const btnGetIn = document.getElementById('btn-get-in');
+const btnFullscreen = document.getElementById('btn-fullscreen');
+const iconFsEnter = document.getElementById('icon-fs-enter');
+const iconFsExit = document.getElementById('icon-fs-exit');
 
 const busAudio = new Audio('/bus-arrival.mp3');
 
@@ -39,6 +42,27 @@ btnGetIn.addEventListener('click', () => {
       player.playVideo();
     }
   };
+});
+
+// Fullscreen Logic
+btnFullscreen.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log(`Error attempting to enable fullscreen: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    iconFsEnter.style.display = 'none';
+    iconFsExit.style.display = 'block';
+  } else {
+    iconFsEnter.style.display = 'block';
+    iconFsExit.style.display = 'none';
+  }
 });
 
 const busData = [
