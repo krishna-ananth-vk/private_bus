@@ -576,6 +576,53 @@ main {
   border-color: #ff4a4a;
 }
 
+/* Tablet Layout (Portrait & Landscape) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .player-wrapper {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: auto;
+    max-width: 60vw;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .glass-card {
+    padding: 0.5rem 1rem;
+  }
+
+  .main-title {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    margin: 0;
+    text-align: left;
+    font-size: 2.5rem;
+  }
+  
+  .sub-title {
+    position: fixed;
+    top: 5.5rem;
+    left: 2rem;
+    margin: 0;
+    text-align: left;
+  }
+
+  .top-right-actions {
+    top: 5rem;
+    right: 1.25rem;
+    bottom: auto;
+    flex-direction: column;
+  }
+
+  .playlist-popover {
+    bottom: auto;
+    top: calc(100% + 1rem);
+    right: 0;
+  }
+}
+
 /* Responsive tweaks */
 @media (max-width: 640px) {
   main {
