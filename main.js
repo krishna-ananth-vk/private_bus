@@ -28,6 +28,11 @@ const iconFsEnter = document.getElementById('icon-fs-enter');
 const iconFsExit = document.getElementById('icon-fs-exit');
 const btnHonk = document.getElementById('btn-honk');
 const btnBell = document.getElementById('btn-bell');
+const btnPlaylist = document.getElementById('btn-playlist');
+const playlistModal = document.getElementById('playlist-modal');
+const btnClosePlaylist = document.getElementById('btn-close-playlist');
+const playlistContainer = document.getElementById('playlist-container');
+const modalPlaylistTitle = document.getElementById('modal-playlist-title');
 
 const hornAudio = new Audio('/Bus_Horn.mp3');
 btnHonk.addEventListener('click', () => {
@@ -59,7 +64,7 @@ btnBell.addEventListener('click', handleBellPress);
 // Fullscreen Logic
 btnFullscreen.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(err => {
+    document.documentElement.requestFullscreen().catch((err) => {
       console.log(`Error attempting to enable fullscreen: ${err.message}`);
     });
   } else {
@@ -76,6 +81,62 @@ document.addEventListener('fullscreenchange', () => {
     iconFsExit.style.display = 'none';
   }
 });
+
+// Playlist Modal Logic
+btnPlaylist.addEventListener('click', () => {
+  renderPlaylist();
+  playlistModal.classList.remove('hidden');
+});
+
+btnClosePlaylist.addEventListener('click', () => {
+  playlistModal.classList.add('hidden');
+});
+
+// Close modal when clicking outside content
+playlistModal.addEventListener('click', (e) => {
+  if (e.target === playlistModal) {
+    playlistModal.classList.add('hidden');
+  }
+});
+
+function renderPlaylist() {
+  const currentId = localStorage.getItem('selectedBus') || busData[0].id;
+  const currentBus = busData.find(b => b.id === currentId);
+  const playlist = songsData[currentId] || [];
+  
+  if (currentBus) {
+    modalPlaylistTitle.textContent = `${currentBus.name} Playlist`;
+  }
+  
+  playlistContainer.innerHTML = '';
+  
+  const currentIndex = player && player.getPlaylistIndex ? player.getPlaylistIndex() : -1;
+  
+  playlist.forEach((song, index) => {
+    const item = document.createElement('div');
+    item.className = 'playlist-item';
+    if (index === currentIndex) {
+      item.classList.add('active');
+    }
+    
+    item.innerHTML = `
+      <img src="${song.thumbnail}" alt="Thumbnail" class="playlist-item-thumb" onerror="this.src='/bg.png'" />
+      <div class="playlist-item-info">
+        <p class="playlist-item-title">${song.title}</p>
+        <p class="playlist-item-artist">${song.artist || 'Unknown Artist'}</p>
+      </div>
+    `;
+    
+    item.addEventListener('click', () => {
+      if (player && player.playVideoAt) {
+        player.playVideoAt(index);
+        playlistModal.classList.add('hidden');
+      }
+    });
+    
+    playlistContainer.appendChild(item);
+  });
+}
 
 const busData = [
   // Malabar Region
