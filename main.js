@@ -30,9 +30,7 @@ const btnHonk = document.getElementById('btn-honk');
 const btnBell = document.getElementById('btn-bell');
 const btnPlaylist = document.getElementById('btn-playlist');
 const playlistModal = document.getElementById('playlist-modal');
-const btnClosePlaylist = document.getElementById('btn-close-playlist');
 const playlistContainer = document.getElementById('playlist-container');
-const modalPlaylistTitle = document.getElementById('modal-playlist-title');
 
 const hornAudio = new Audio('/Bus_Horn.mp3');
 btnHonk.addEventListener('click', () => {
@@ -88,10 +86,6 @@ btnPlaylist.addEventListener('click', () => {
   playlistModal.classList.remove('hidden');
 });
 
-btnClosePlaylist.addEventListener('click', () => {
-  playlistModal.classList.add('hidden');
-});
-
 // Close modal when clicking outside content
 document.addEventListener('click', (e) => {
   if (!playlistModal.classList.contains('hidden')) {
@@ -103,12 +97,7 @@ document.addEventListener('click', (e) => {
 
 function renderPlaylist() {
   const currentId = localStorage.getItem('selectedBus') || busData[0].id;
-  const currentBus = busData.find(b => b.id === currentId);
   const playlist = songsData[currentId] || [];
-  
-  if (currentBus) {
-    modalPlaylistTitle.textContent = `${currentBus.name} Playlist`;
-  }
   
   playlistContainer.innerHTML = '';
   

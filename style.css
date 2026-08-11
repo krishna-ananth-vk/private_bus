@@ -484,24 +484,6 @@ main {
   transform: translateY(10px);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-}
-
-.modal-header h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .playlist-container {
   overflow-y: auto;
   overflow-x: hidden;
