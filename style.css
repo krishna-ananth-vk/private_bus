@@ -356,15 +356,47 @@ main {
   backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid var(--glass-border);
   border-radius: 8px;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 250px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: max-content;
+  max-width: 90vw;
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.2s ease;
+}
+
+.bus-region {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bus-region-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.bus-region-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .bus-list {
+    grid-template-columns: 1fr;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
 }
 
 .bus-selector-wrapper:hover .bus-list {

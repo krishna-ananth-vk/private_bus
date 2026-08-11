@@ -168,26 +168,51 @@ function onPlayerReady(event) {
   });
   
   // Populate bus list dynamically
-  busData.forEach(bus => {
-    const btn = document.createElement('button');
-    btn.className = 'bus-option';
-    btn.textContent = `${bus.name} (${bus.start} - ${bus.end})`;
+  busListContainer.innerHTML = '';
+  
+  const regions = [
+    { name: "Malabar Region (North)", buses: busData.slice(0, 6) },
+    { name: "Central Kerala", buses: busData.slice(6, 12) },
+    { name: "South Kerala", buses: busData.slice(12, 15) }
+  ];
+  
+  regions.forEach(region => {
+    const section = document.createElement('div');
+    section.className = 'bus-region';
     
-    btn.addEventListener('click', () => {
-      mainTitle.textContent = bus.name;
-      routeStart.textContent = bus.start;
-      routeEnd.textContent = bus.end;
+    const header = document.createElement('h3');
+    header.className = 'bus-region-title';
+    header.textContent = region.name;
+    section.appendChild(header);
+    
+    const optionsContainer = document.createElement('div');
+    optionsContainer.className = 'bus-region-options';
+    
+    region.buses.forEach(bus => {
+      const btn = document.createElement('button');
+      btn.className = 'bus-option';
+      btn.textContent = `${bus.name} (${bus.start} - ${bus.end})`;
       
-      localStorage.setItem('selectedBus', bus.id);
-      
-      const playlist = songsData[bus.id] || [];
-      const playlistIds = playlist.map(s => s.id);
-      if (playlistIds.length > 0) {
-        player.loadPlaylist(playlistIds, 0, 0);
-      }
+      btn.addEventListener('click', () => {
+        mainTitle.textContent = bus.name;
+        routeStart.textContent = bus.start;
+        routeEnd.textContent = bus.end;
+        
+        localStorage.setItem('selectedBus', bus.id);
+        
+        const playlist = songsData[bus.id] || [];
+        const playlistIds = playlist.map(s => s.id);
+        if (playlistIds.length > 0) {
+          player.loadPlaylist(playlistIds);
+          player.setVolume(100);
+          updateTrackInfo();
+        }
+      });
+      optionsContainer.appendChild(btn);
     });
     
-    busListContainer.appendChild(btn);
+    section.appendChild(optionsContainer);
+    busListContainer.appendChild(section);
   });
   
   // Restore state
