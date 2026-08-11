@@ -155,8 +155,8 @@ function onPlayerReady(event) {
   
   // Event listeners
   btnPlayPause.addEventListener('click', togglePlayPause);
-  btnPrev.addEventListener('click', () => player.previousVideo());
-  btnNext.addEventListener('click', () => player.nextVideo());
+  btnPrev.addEventListener('click', prevTrack);
+  btnNext.addEventListener('click', nextTrack);
   
   // Basic seeking
   progressContainer.addEventListener('click', (e) => {
@@ -358,6 +358,50 @@ function playNextBus() {
   }
 }
 
+function playPrevBus() {
+  const currentId = localStorage.getItem('selectedBus') || busData[0].id;
+  const currentIndex = busData.findIndex(b => b.id === currentId);
+  let prevIndex = currentIndex - 1;
+  if (prevIndex < 0) prevIndex = busData.length - 1;
+  
+  const prevBus = busData[prevIndex];
+  
+  mainTitle.textContent = prevBus.name;
+  routeStart.textContent = prevBus.start;
+  routeEnd.textContent = prevBus.end;
+  
+  localStorage.setItem('selectedBus', prevBus.id);
+  
+  const playlist = songsData[prevBus.id] || [];
+  const playlistIds = playlist.map(s => s.id);
+  if (playlistIds.length > 0 && player && player.loadPlaylist) {
+    player.loadPlaylist(playlistIds, playlistIds.length - 1, 0);
+  }
+}
+
+function nextTrack() {
+  if (!player) return;
+  const currentPlaylist = player.getPlaylist();
+  const currentIndex = player.getPlaylistIndex();
+  
+  if (currentPlaylist && currentIndex === currentPlaylist.length - 1) {
+    playNextBus();
+  } else {
+    player.nextVideo();
+  }
+}
+
+function prevTrack() {
+  if (!player) return;
+  const currentIndex = player.getPlaylistIndex();
+  
+  if (currentIndex === 0) {
+    playPrevBus();
+  } else {
+    player.previousVideo();
+  }
+}
+
 // Key bindings
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -372,9 +416,9 @@ document.addEventListener('keydown', (e) => {
   } else if (key === 'f') {
     btnFullscreen.click();
   } else if (key === 'j') {
-    document.getElementById('btn-next').click();
+    nextTrack();
   } else if (key === 'k') {
-    document.getElementById('btn-prev').click();
+    prevTrack();
   } else if (key === 'n') {
     playNextBus();
   }
