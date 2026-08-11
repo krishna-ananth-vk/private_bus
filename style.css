@@ -441,7 +441,7 @@ main {
   gap: 1rem;
 }
 
-.top-right-actions .action-btn {
+.glass-icon-btn {
   background-color: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid var(--glass-border);
@@ -455,7 +455,7 @@ main {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.top-right-actions .action-btn:hover {
+.glass-icon-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.4);
 }
