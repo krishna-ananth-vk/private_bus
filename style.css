@@ -497,14 +497,19 @@ main {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .playlist-container {
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding-right: 0.5rem;
+  width: 100%;
 }
 
 .playlist-container::-webkit-scrollbar {
@@ -523,6 +528,7 @@ main {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  width: 100%;
 }
 
 .playlist-item:hover {
@@ -547,6 +553,7 @@ main {
   flex-direction: column;
   overflow: hidden;
   min-width: 0;
+  flex: 1;
 }
 
 .playlist-item-title {
