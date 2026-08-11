@@ -1,0 +1,461 @@
+:root {
+  --primary-color: #ff2a2a; /* Rich Neon Red */
+  --accent-color: #ffd700; /* Gold */
+  --bg-color: #051610; /* Deep Green/Black */
+  --text-main: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background-image: url('/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Hidden YouTube Player */
+#player-container {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Main Layout */
+main {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Top Nav */
+.top-nav {
+  position: fixed;
+  top: 1.25rem;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.online-users {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.375rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  filter: drop-shadow(0 1px 6px rgba(0,0,0,0.5));
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.ping-dot {
+  position: relative;
+  display: flex;
+  height: 0.625rem;
+  width: 0.625rem;
+}
+
+.ping-animate {
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  background-color: #4ade80;
+  opacity: 0.75;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ping-core {
+  position: relative;
+  display: inline-flex;
+  height: 0.625rem;
+  width: 0.625rem;
+  border-radius: 9999px;
+  background-color: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.online-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.online-text {
+  color: var(--text-muted);
+}
+
+/* Route Info */
+.route-info-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: white;
+  text-align: right;
+}
+
+.route-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-color);
+}
+
+.route-places {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.route-arrow {
+  color: var(--primary-color);
+  font-weight: 400;
+}
+
+/* Typography */
+.main-title {
+  font-family: 'Chilanka', cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  margin-top: -10vh;
+}
+
+.sub-title {
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Player UI */
+.player-wrapper {
+  width: 100%;
+  max-width: 32rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glass-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255,215,0,0.4);
+}
+
+/* Album Art */
+.album-art-container {
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  flex-shrink: 0;
+}
+
+.album-art {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.album-art img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.spin-anim {
+  animation: spin 8s linear infinite;
+}
+
+.spin-anim.paused {
+  animation-play-state: paused;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.album-center-hole {
+  display: none;
+}
+
+/* Track Info */
+.track-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.track-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-top: 0.5rem;
+}
+
+.progress-bar-bg {
+  position: relative;
+  height: 0.25rem;
+  width: 100%;
+  border-radius: 9999px;
+  background-color: rgba(255,255,255,0.2);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--accent-color);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.time-info {
+  margin-top: 0.375rem;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-btn {
+  height: 2.25rem;
+  width: 2.25rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.icon-btn:hover:not(:disabled) {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.icon-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.play-btn {
+  height: 2.75rem;
+  width: 2.75rem;
+  background-color: white;
+  color: black;
+}
+
+.play-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.play-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .main-title { font-size: 2.2rem; }
+  .glass-card { flex-direction: column; padding: 1.5rem; text-align: center; }
+  .album-art-container { height: 8rem; width: 8rem; margin-bottom: 0.5rem; }
+  .controls { margin-top: 1rem; gap: 1rem; }
+  .play-btn { height: 3.5rem; width: 3.5rem; }
+  .icon-btn { height: 3rem; width: 3rem; }
+  .time-info { text-align: center; }
+}
+
+/* Bus Selection Board */
+.bus-board-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 30;
+}
+
+.bus-board-current {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.bus-board-current:hover {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.board-label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.bus-list {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.5rem;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+}
+
+.bus-board-container:hover .bus-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.bus-option {
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.1s ease;
+}
+
+.bus-option:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .bus-board-container {
+    bottom: 1rem;
+    left: 1rem;
+  }
+}

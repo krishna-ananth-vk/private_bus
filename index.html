@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kerala Private Bus Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- YouTube Hidden Player -->
+    <div id="player-container">
+      <div id="youtube-player"></div>
+    </div>
+
+    <main>
+      <!-- Online Users Mock -->
+      <div class="top-nav">
+        <div class="online-users">
+          <span class="ping-dot">
+            <span class="ping-animate"></span>
+            <span class="ping-core"></span>
+          </span>
+          <span class="online-count">108</span>
+          <span class="online-text">online</span>
+        </div>
+      </div>
+
+      <!-- Route Info -->
+      <div class="route-info-container">
+        <span class="route-label">ROUTE</span>
+        <div class="route-places">
+          <span id="route-start">Palakkad</span>
+          <span class="route-arrow">⟶</span>
+          <span id="route-end">Shornur</span>
+        </div>
+      </div>
+
+      <!-- Player Component -->
+      <div class="player-wrapper">
+        <!-- Logo or Title -->
+        <h1 class="main-title" id="main-title">PRIVATE BUS</h1>
+        <p class="sub-title">Kerala's finest high-speed bangers</p>
+
+        <!-- Player Card -->
+        <div class="glass-card">
+          <!-- Album Art -->
+          <div class="album-art-container">
+            <div class="album-art" id="album-art-wrapper">
+              <img src="/bg.png" alt="Album Art" id="album-art-img" />
+            </div>
+            <div class="album-center-hole"></div>
+          </div>
+
+          <!-- Track Info -->
+          <div class="track-info">
+            <p class="track-title" id="track-title">Loading track...</p>
+            <p class="track-artist" id="track-artist">Connecting to YouTube...</p>
+
+            <!-- Progress Bar -->
+            <div class="progress-container" id="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+              </div>
+              <div class="time-info">
+                <span id="time-current">0:00</span> / <span id="time-total">0:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls">
+            <button aria-label="Previous track" id="btn-prev" class="control-btn icon-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
+            </button>
+            <button aria-label="Play/Pause" id="btn-play-pause" class="control-btn play-btn" disabled>
+              <!-- Play Icon Default -->
+              <svg id="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+              <!-- Pause Icon Hidden -->
+              <svg id="icon-pause" style="display:none;" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+            </button>
+            <button aria-label="Next track" id="btn-next" class="control-btn icon-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zm-2 6L5.5 6v12z"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Bus Selection Board -->
+      <div class="bus-board-container">
+        <div class="bus-board-current">
+          <span class="board-label">BUS:</span>
+          <span class="board-name" id="current-bus-name">MAYILVAHANAM</span>
+        </div>
+        <div class="bus-list" id="bus-list">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Load YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
