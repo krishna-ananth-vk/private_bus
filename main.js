@@ -27,12 +27,34 @@ const btnFullscreen = document.getElementById('btn-fullscreen');
 const iconFsEnter = document.getElementById('icon-fs-enter');
 const iconFsExit = document.getElementById('icon-fs-exit');
 const btnHonk = document.getElementById('btn-honk');
+const btnBell = document.getElementById('btn-bell');
 
 const hornAudio = new Audio('/Bus_Horn.mp3');
 btnHonk.addEventListener('click', () => {
   hornAudio.currentTime = 0;
   hornAudio.play().catch(e => console.log('Horn play failed:', e));
 });
+
+const startAudio = new Audio('/start.mp3');
+const stopAudio = new Audio('/stop.mp3');
+let bellClickTimer = null;
+
+function handleBellPress() {
+  if (bellClickTimer) {
+    clearTimeout(bellClickTimer);
+    bellClickTimer = null;
+    startAudio.currentTime = 0;
+    startAudio.play().catch(e => console.log('Start play failed:', e));
+  } else {
+    bellClickTimer = setTimeout(() => {
+      bellClickTimer = null;
+      stopAudio.currentTime = 0;
+      stopAudio.play().catch(e => console.log('Stop play failed:', e));
+    }, 250);
+  }
+}
+
+btnBell.addEventListener('click', handleBellPress);
 
 // Fullscreen Logic
 btnFullscreen.addEventListener('click', () => {
@@ -281,6 +303,8 @@ document.addEventListener('keydown', (e) => {
   
   if (key === 'x') {
     btnHonk.click();
+  } else if (key === 'b') {
+    btnBell.click();
   } else if (key === 'p') {
     document.getElementById('btn-play-pause').click();
   } else if (key === 'f') {

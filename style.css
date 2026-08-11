@@ -423,26 +423,36 @@ main {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Honk Button */
-.btn-honk {
-  background-color: var(--primary-color);
+/* Action Buttons */
+.btn-action {
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  border: 1px solid var(--primary-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 42, 42, 0.4);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.btn-honk:hover {
-  background-color: #ff4a4a;
+.btn-action:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: scale(1.05);
 }
 
-.btn-honk:active {
+.btn-action:active {
   transform: scale(0.95);
+}
+
+.btn-action.btn-red {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(255, 42, 42, 0.4);
+}
+
+.btn-action.btn-red:hover {
+  background-color: #ff4a4a;
 }
