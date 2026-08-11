@@ -129,12 +129,29 @@
 
       <!-- Top Right Actions -->
       <div class="top-right-actions">
-        <!-- Playlist Button -->
-        <button id="btn-playlist" class="icon-btn action-btn" aria-label="View Playlist">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M4 10h12v2H4zm0-4h12v2H4zm0 8h8v2H4zm10 0v6l5-3z"/>
-          </svg>
-        </button>
+        <!-- Playlist Wrapper -->
+        <div class="playlist-wrapper" style="position: relative;">
+          <!-- Playlist Button -->
+          <button id="btn-playlist" class="icon-btn action-btn" aria-label="View Playlist">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 10h12v2H4zm0-4h12v2H4zm0 8h8v2H4zm10 0v6l5-3z"/>
+            </svg>
+          </button>
+          
+          <!-- Playlist Modal (Popover) -->
+          <div id="playlist-modal" class="playlist-popover glass-card hidden">
+            <div class="modal-header">
+              <h2 id="modal-playlist-title">Playlist</h2>
+              <button id="btn-close-playlist" class="icon-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+            <div id="playlist-container" class="playlist-container">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </div>
+
         <!-- Fullscreen Button -->
         <button id="btn-fullscreen" class="icon-btn action-btn" aria-label="Toggle Fullscreen">
           <svg id="icon-fs-enter" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -146,21 +163,6 @@
         </button>
       </div>
     </main>
-
-    <!-- Playlist Modal -->
-    <div id="playlist-modal" class="modal-overlay hidden">
-      <div class="modal-content glass-card">
-        <div class="modal-header">
-          <h2 id="modal-playlist-title">Playlist</h2>
-          <button id="btn-close-playlist" class="icon-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-          </button>
-        </div>
-        <div id="playlist-container" class="playlist-container">
-          <!-- Populated via JS -->
-        </div>
-      </div>
-    </div>
 
     <!-- Load YouTube IFrame API -->
     <script src="https://www.youtube.com/iframe_api"></script>

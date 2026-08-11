@@ -93,9 +93,11 @@ btnClosePlaylist.addEventListener('click', () => {
 });
 
 // Close modal when clicking outside content
-playlistModal.addEventListener('click', (e) => {
-  if (e.target === playlistModal) {
-    playlistModal.classList.add('hidden');
+document.addEventListener('click', (e) => {
+  if (!playlistModal.classList.contains('hidden')) {
+    if (!playlistModal.contains(e.target) && !btnPlaylist.contains(e.target)) {
+      playlistModal.classList.add('hidden');
+    }
   }
 });
 
@@ -119,8 +121,13 @@ function renderPlaylist() {
       item.classList.add('active');
     }
     
+    let thumbSrc = song.thumbnail;
+    if (thumbSrc && thumbSrc.startsWith('data:image/gif')) {
+      thumbSrc = '/bg.png';
+    }
+    
     item.innerHTML = `
-      <img src="${song.thumbnail}" alt="Thumbnail" class="playlist-item-thumb" onerror="this.src='/bg.png'" />
+      <img src="${thumbSrc}" alt="Thumbnail" class="playlist-item-thumb" onerror="this.src='/bg.png'" />
       <div class="playlist-item-info">
         <p class="playlist-item-title">${song.title}</p>
         <p class="playlist-item-artist">${song.artist || 'Unknown Artist'}</p>
