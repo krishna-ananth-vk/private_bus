@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "meta_bg": "sips -Z 1200 -s format jpeg -s formatOptions 70 public/meta-bg.png --out public/preview.jpg"
   },
   "devDependencies": {
     "vite": "^8.2.0"
