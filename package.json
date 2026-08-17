@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "meta_bg": "node scripts/capture-preview.js"
+    "meta_bg": "node scripts/capture-preview.js",
+    "deploy": "npm run build && npx wrangler pages deploy dist"
   },
   "devDependencies": {
     "playwright": "^1.62.1",
